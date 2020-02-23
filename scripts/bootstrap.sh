@@ -47,7 +47,7 @@ apt-get -y install maven
 
 # Tomcat
 apt-get -y install tomcat7 tomcat7-admin
-usermod -a -G tomcat7 vagrant
+usermod -a -G tomcat7 ubuntu
 
 # We still need this for the rest of the times Tomcat is run in the other build scripts
 sed -i "s|#JAVA_HOME=/usr/lib/jvm/openjdk-[0-9]\+-jdk|JAVA_HOME=$JAVA_HOME|g" /etc/default/tomcat7
@@ -87,7 +87,7 @@ debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Si
 
 # Lamp server
 tasksel install lamp-server
-usermod -a -G www-data vagrant
+usermod -a -G www-data ubuntu
 
 echo "CREATE DATABASE fedora3" | mysql -uroot -pislandora
 echo "CREATE USER 'fedoraAdmin'@'localhost' IDENTIFIED BY 'fedoraAdmin'" | mysql -uroot -pislandora
@@ -97,5 +97,5 @@ echo "flush privileges" | mysql -uroot -pislandora
 # Add web group, and put some users in it
 groupadd web
 usermod -a -G web www-data
-usermod -a -G web vagrant
+usermod -a -G web ubuntu
 usermod -a -G web tomcat7
