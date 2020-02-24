@@ -42,7 +42,7 @@ wget -q https://phar.phpunit.de/phpcpd.phar
 mv phpcpd.phar /usr/local/bin/phpcpd
 chmod +x /usr/local/bin/phpcpd
 
-wget -q http://static.pdepend.org/php/latest/pdepend.phar
+wget -q https://github.com/pdepend/pdepend/releases/download/2.7.1/pdepend.phar
 mv pdepend.phar /usr/local/bin/pdepend
 chmod +x /usr/local/bin/pdepend
 

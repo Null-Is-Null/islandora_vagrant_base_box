@@ -22,6 +22,7 @@ cd dgi_gsearch_extensions || exit
 mvn -q package
 
 # Build GSearch
+apt-get install -y ant
 cd /tmp || exit
 git clone https://github.com/discoverygarden/gsearch.git
 cd gsearch/FedoraGenericSearch || exit

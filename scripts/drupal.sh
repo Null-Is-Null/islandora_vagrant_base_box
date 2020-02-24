@@ -16,11 +16,12 @@ export DEBIAN_FRONTEND=noninteractive
 export APACHE_CONFIG_FILE=/etc/apache2/sites-enabled/000-default.conf
 
 # Drush and drupal deps
-apt-get -y install php5-gd php5-dev php5-xsl php-soap php5-curl php5-imagick imagemagick lame libimage-exiftool-perl bibutils poppler-utils
-cp -v "$SHARED_DIR"/configs/ImageMagick_policy.xml /etc/ImageMagick/policy.xml
-chmod 644 /etc/ImageMagick/policy.xml
+apt-get -y install php7.2-gd php7.2-dev php7.2-xsl php-soap php7.2-curl php7.2-imagick imagemagick lame libimage-exiftool-perl bibutils poppler-utils
+d
+cp -v "$SHARED_DIR"/configs/ImageMagick_policy.xml /etc/ImageMagick-6/policy.xml
+chmod 644 /etc/ImageMagick-6/policy.xml
 pecl install uploadprogress
-sed -i '/; extension_dir = "ext"/ a\ extension=uploadprogress.so' /etc/php5/apache2/php.ini
+sed -i '/; extension_dir = "ext"/ a\ extension=uploadprogress.so' /etc/php/7.2/apache2/php.ini
 #Ensure same drush as travis
 wget http://alpha.library.yorku.ca/drush-6.3.tar.gz
 tar xf drush-6.3.tar.gz
@@ -117,7 +118,7 @@ drush dl coder-7.x-2.5
 drush -y en coder
 
 # php.ini templating
-cp -v "$SHARED_DIR"/configs/php.ini /etc/php5/apache2/php.ini
+cp -v "$SHARED_DIR"/configs/php.ini /etc/php/7.2/apache2/php.ini
 
 service apache2 restart
 

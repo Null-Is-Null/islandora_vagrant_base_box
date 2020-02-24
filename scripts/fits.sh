@@ -20,6 +20,7 @@ if [ ! -f "$DOWNLOAD_DIR/fits-$FITS_VERSION.zip" ]; then
   wget -q -O "$DOWNLOAD_DIR/fits-$FITS_VERSION.zip" "http://projects.iq.harvard.edu/files/fits/files/fits-$FITS_VERSION.zip"
 fi
 
+apt-get install -y unzip
 unzip "$DOWNLOAD_DIR/fits-$FITS_VERSION.zip" -d "$FITS_HOME"
 cd "$FITS_HOME/fits-$FITS_VERSION" || exit
 chmod +x fits.sh

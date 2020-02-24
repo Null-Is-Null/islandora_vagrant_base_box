@@ -68,7 +68,9 @@ fi
 
 #OpenJPEG from source
 apt-get -y update
-apt-get install -y openjpeg-tools libopenjpeg2 liblcms2-dev  libtiff-dev libpng-dev libz-dev 
+apt-get install -y liblcms2-dev  libtiff-dev libpng-dev libz-dev 
+#openjpeg-tools libopenjpeg2 
+
 apt-get install -y cmake
 cd "$DOWNLOAD_DIR" || exit
 git clone https://github.com/uclouvain/openjpeg

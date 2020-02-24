@@ -14,7 +14,7 @@ fi
 if [ ! -d "$FEDORA_HOME" ]; then
   mkdir "$FEDORA_HOME"
 fi
-chown tomcat7:tomcat7 "$FEDORA_HOME"
+chown tomcat8:tomcat8 "$FEDORA_HOME"
 chmod g-w "$FEDORA_HOME"
 
 echo "Downloading Fedora"
@@ -45,21 +45,21 @@ then
 fi
 
 # Deploy fcrepo
-chown tomcat7:tomcat7 /var/lib/tomcat7/webapps/fedora.war
-chown -hR tomcat7:tomcat7 "$FEDORA_HOME"
-service tomcat7 restart
+chown tomcat8:tomcat8 /var/lib/tomcat8/webapps/fedora.war
+chown -hR tomcat8:tomcat8 "$FEDORA_HOME"
+service tomcat8 restart
 echo "Sleeping while Fedora starts for the first time."
 sleep 45
 
 # Setup XACML Policies
 rm "$FEDORA_HOME"/data/fedora-xacml-policies/repository-policies/default/deny-inactive-or-deleted-objects-or-datastreams-if-not-administrator.xml
-rm "$FEDORA_HOME"/data/fedora-xacml-policies/repository-policies/default/deny-policy-management-if-not-administrator.xml
+rm "$fedora_home"/data/fedora-xacml-policies/repository-policies/default/deny-policy-management-if-not-administrator.xml
 rm "$FEDORA_HOME"/data/fedora-xacml-policies/repository-policies/default/deny-unallowed-file-resolution.xml
 rm "$FEDORA_HOME"/data/fedora-xacml-policies/repository-policies/default/deny-purge-datastream-if-active-or-inactive.xml
 rm "$FEDORA_HOME"/data/fedora-xacml-policies/repository-policies/default/deny-purge-object-if-active-or-inactive.xml
 rm "$FEDORA_HOME"/data/fedora-xacml-policies/repository-policies/default/deny-reloadPolicies-if-not-localhost.xml
 
-cd "$FEDORA_HOME"/data/fedora-xacml-policies/repository-policies/ || exit
+cd "$FEDORA_HOME"/data/fedora-xacml-policies/ || exit
 git clone https://github.com/Islandora/islandora-xacml-policies.git islandora
 rm "$FEDORA_HOME"/data/fedora-xacml-policies/repository-policies/islandora/permit-apim-to-anonymous-user.xml
 rm "$FEDORA_HOME"/data/fedora-xacml-policies/repository-policies/islandora/permit-upload-to-anonymous-user.xml

@@ -31,26 +31,26 @@ apt-get install -y software-properties-common
 apt-get install -y python-software-properties
 add-apt-repository -y ppa:webupd8team/java
 apt-get update
-echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-apt-get install -y oracle-java8-installer
-update-java-alternatives -s java-8-oracle
-apt-get install -y oracle-java8-set-default
+#echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+#echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+apt-get install -y openjdk-8-jdk-headless
+#update-java-alternatives -s java-8-oracle
+#apt-get install -y oracle-java8-set-default
 
 # Set JAVA_HOME variable both now and for when the system restarts
 export JAVA_HOME
-JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:jre/bin/java::")
 echo "JAVA_HOME=$JAVA_HOME" >> /etc/environment
 
 # Maven
 apt-get -y install maven
 
 # Tomcat
-apt-get -y install tomcat7 tomcat7-admin
-usermod -a -G tomcat7 ubuntu
+apt-get -y install tomcat8 tomcat8-admin
+usermod -a -G tomcat8 ubuntu
 
 # We still need this for the rest of the times Tomcat is run in the other build scripts
-sed -i "s|#JAVA_HOME=/usr/lib/jvm/openjdk-[0-9]\+-jdk|JAVA_HOME=$JAVA_HOME|g" /etc/default/tomcat7
+sed -i "s|#JAVA_HOME=.*|JAVA_HOME=$JAVA_HOME|g" /etc/default/tomcat8
 
 # Wget and curl
 apt-get -y install wget curl
@@ -86,6 +86,7 @@ debconf-set-selections <<< "postfix postfix/mailname string islandora-vagrant.or
 debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
 
 # Lamp server
+apt-get -y install tasksel
 tasksel install lamp-server
 usermod -a -G www-data ubuntu
 
@@ -98,4 +99,4 @@ echo "flush privileges" | mysql -uroot -pislandora
 groupadd web
 usermod -a -G web www-data
 usermod -a -G web ubuntu
-usermod -a -G web tomcat7
+usermod -a -G web tomcat8
